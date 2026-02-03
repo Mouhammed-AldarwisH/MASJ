@@ -1,0 +1,393 @@
+/* ===== إعادة التعيين الأساسية ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f0e8;
+    min-height: 100vh;
+    direction: rtl;
+}
+
+/* ===== الشريط العلوي ===== */
+.top-header {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.header-title {
+    font-size: 16px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+}
+
+.header-icon {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: background 0.3s ease;
+}
+
+.header-icon:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ===== المحتوى الرئيسي ===== */
+.main-content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px 16px;
+}
+
+/* ===== معلومات الطالب ===== */
+.student-info-section {
+    margin-bottom: 20px;
+}
+
+.student-info-card {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(26, 90, 74, 0.3);
+}
+
+.student-name {
+    font-size: 18px;
+    color: white;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.recitation-type {
+    display: inline-block;
+    background: rgba(212, 175, 55, 0.2);
+    border: 2px solid #d4af37;
+    color: #d4af37;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ===== أقسام التسميع (بداية ونهاية) ===== */
+.recitation-section {
+    background: white;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* شريط عنوان القسم */
+.section-header-bar {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    padding: 12px 15px;
+}
+
+.section-title {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* صف المدخلات */
+.input-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 10px;
+    padding: 15px;
+    background: #fafafa;
+}
+
+/* مجموعة المدخل الواحد */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-label {
+    font-size: 12px;
+    color: #1a5a4a;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* قائمة السور */
+.input-select {
+    width: 100%;
+    padding: 10px 8px;
+    font-size: 14px;
+    font-family: inherit;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 8px center;
+    padding-left: 25px;
+    transition: border-color 0.3s ease;
+}
+
+.input-select:focus {
+    outline: none;
+    border-color: #1a5a4a;
+}
+
+/* حقل الرقم */
+.input-field {
+    width: 100%;
+    padding: 10px 8px;
+    font-size: 14px;
+    font-family: inherit;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #1a5a4a;
+}
+
+/* إزالة أسهم حقل الرقم */
+.input-field::-webkit-outer-spin-button,
+.input-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-field[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* ===== قسم الدرجة والأخطاء ===== */
+.scores-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* مربع الدرجة/الأخطاء */
+.score-box {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.score-title {
+    font-size: 14px;
+    color: #1a5a4a;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* عرض القيمة */
+.score-display {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #d4af37;
+}
+
+.score-value {
+    font-size: 28px;
+    color: white;
+    font-weight: bold;
+}
+
+/* أزرار التحكم */
+.score-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.control-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #1a5a4a;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plus-btn {
+    background: #1a5a4a;
+    color: white;
+}
+
+.plus-btn:hover {
+    background: #2d7a6a;
+}
+
+.minus-btn {
+    background: white;
+    color: #1a5a4a;
+}
+
+.minus-btn:hover {
+    background: #f0f0f0;
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+/* مربع الأخطاء - لون مختلف */
+.errors-box .score-display {
+    background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+}
+
+/* ===== زر الحفظ ===== */
+.save-section {
+    padding: 10px 0 30px;
+}
+
+.save-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: inherit;
+    color: white;
+    background: linear-gradient(135deg, #d4af37 0%, #c9a030 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+
+.save-btn:active {
+    transform: translateY(0);
+}
+
+/* ===== التصميم المتجاوب ===== */
+
+/* للشاشات الصغيرة جداً */
+@media (max-width: 360px) {
+    .main-content {
+        padding: 15px 10px;
+    }
+    
+    .input-row {
+        gap: 8px;
+        padding: 12px;
+    }
+    
+    .input-select,
+    .input-field {
+        padding: 8px 6px;
+        font-size: 13px;
+    }
+    
+    .score-display {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .score-value {
+        font-size: 24px;
+    }
+    
+    .control-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+    }
+}
+
+/* للشاشات المتوسطة والكبيرة */
+@media (min-width: 768px) {
+    .main-content {
+        padding: 30px 20px;
+    }
+    
+    .input-row {
+        gap: 15px;
+        padding: 20px;
+    }
+    
+    .input-select,
+    .input-field {
+        padding: 12px 10px;
+        font-size: 16px;
+    }
+    
+    .score-display {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .score-value {
+        font-size: 32px;
+    }
+    
+    .control-btn {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    .save-btn,
+    .control-btn,
+    .input-select,
+    .input-field {
+        transition: none;
+    }
+}

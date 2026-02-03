@@ -1,0 +1,601 @@
+/* ===== إعادة التعيين الأساسية ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f0e8;
+    min-height: 100vh;
+    direction: rtl;
+    /* مساحة للزر الثابت في الأسفل */
+    padding-bottom: 80px;
+}
+
+/* ===== الشريط العلوي ===== */
+.top-header {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.header-title {
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+}
+
+.header-icon {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: background 0.3s ease;
+}
+
+.header-icon:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ===== المحتوى الرئيسي ===== */
+.main-content {
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== قسم معلومات الحلقة ===== */
+.halqa-info-section {
+    margin-bottom: 16px;
+}
+
+.halqa-info-card {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    border-radius: 15px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(26, 90, 74, 0.3);
+}
+
+.halqa-icon {
+    background: rgba(212, 175, 55, 0.2);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.halqa-details {
+    flex: 1;
+}
+
+.halqa-mosque-name {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.halqa-name {
+    font-size: 14px;
+    color: #d4af37;
+    font-weight: 600;
+}
+
+/* ===== قسم اختيار التاريخ ===== */
+.date-section {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.date-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.date-nav-btn {
+    background: #f5f0e8;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #1a5a4a;
+    transition: background 0.3s ease;
+}
+
+.date-nav-btn:hover {
+    background: #e8e0d5;
+}
+
+.date-display {
+    text-align: center;
+}
+
+.date-day {
+    display: block;
+    font-size: 16px;
+    color: #1a5a4a;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.date-full {
+    display: block;
+    font-size: 14px;
+    color: #666;
+}
+
+.today-btn {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #d4af37 0%, #c9a030 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.today-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+
+/* ===== قسم قائمة الطلاب ===== */
+.students-section {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.students-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.students-title {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+.students-count {
+    font-size: 14px;
+    color: #1a5a4a;
+    background: #e8f5f0;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* ===== حاوية الجدول ===== */
+.students-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ===== جدول الطلاب ===== */
+.students-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 320px;
+}
+
+/* ===== رأس الجدول ===== */
+.students-table thead {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+}
+
+.students-table th {
+    padding: 12px 8px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* عرض الأعمدة */
+.col-name {
+    width: 40%;
+    text-align: right !important;
+    padding-right: 12px !important;
+}
+
+.col-status {
+    width: 35%;
+}
+
+.col-action {
+    width: 25%;
+}
+
+/* ===== صفوف الجدول ===== */
+.students-table tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s ease;
+}
+
+.students-table tbody tr:hover {
+    background: #f8f8f8;
+}
+
+.students-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.students-table td {
+    padding: 12px 8px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* ===== خلية اسم الطالب ===== */
+.student-name-cell {
+    text-align: right !important;
+    padding-right: 12px !important;
+}
+
+.student-name {
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.student-id {
+    font-size: 11px;
+    color: #888;
+}
+
+/* ===== القائمة المنسدلة للحالة ===== */
+.status-select {
+    width: 100%;
+    max-width: 120px;
+    padding: 8px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 8px center;
+    padding-left: 28px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.status-select:focus {
+    outline: none;
+    border-color: #1a5a4a;
+    box-shadow: 0 0 0 3px rgba(26, 90, 74, 0.15);
+}
+
+/* ألوان حسب الحالة */
+.status-select.status-present {
+    border-color: #2e7d32;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-select.status-absent {
+    border-color: #c62828;
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.status-select.status-late {
+    border-color: #f57f17;
+    background-color: #fff8e1;
+    color: #f57f17;
+}
+
+.status-select.status-excused {
+    border-color: #1565c0;
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+/* ===== زر التسميع ===== */
+.recite-btn {
+    background: linear-gradient(135deg, #d4af37 0%, #c9a030 100%);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recite-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 3px 10px rgba(212, 175, 55, 0.4);
+}
+
+/* ===== الفوتر - زر الحفظ ===== */
+.bottom-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 15px 20px;
+    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+}
+
+.save-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(26, 90, 74, 0.4);
+}
+
+/* ===== نافذة التسميع المنبثقة ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-container {
+    position: relative;
+    background: linear-gradient(180deg, #f8f4ec 0%, #f0e8d8 100%);
+    border-radius: 20px;
+    padding: 30px 25px;
+    max-width: 350px;
+    width: 100%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.modal-close-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.modal-title {
+    font-size: 18px;
+    color: #1a5a4a;
+    font-weight: bold;
+}
+
+/* أزرار نافذة التسميع */
+.modal-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-btn {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background: white;
+    border: 2px solid #e0d5c5;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, transform 0.2s ease;
+    font-family: inherit;
+}
+
+.modal-btn:hover {
+    border-color: #d4af37;
+    transform: translateX(-5px);
+}
+
+.modal-btn-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.modal-btn-icon.green {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+}
+
+.modal-btn-icon.blue {
+    background: linear-gradient(135deg, #007bff 0%, #17a2b8 100%);
+    color: white;
+}
+
+.modal-btn-icon.orange {
+    background: linear-gradient(135deg, #fd7e14 0%, #ffc107 100%);
+    color: white;
+}
+
+.modal-btn-text {
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* ===== التصميم المتجاوب ===== */
+@media (max-width: 480px) {
+    .header-title {
+        font-size: 14px;
+    }
+    
+    .halqa-mosque-name {
+        font-size: 14px;
+    }
+    
+    .halqa-name {
+        font-size: 12px;
+    }
+    
+    .students-table th,
+    .students-table td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+    
+    .status-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    
+    .recite-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+    
+    .col-name {
+        min-width: 100px;
+    }
+    
+    .modal-container {
+        padding: 25px 20px;
+    }
+    
+    .modal-btn {
+        padding: 12px 15px;
+    }
+    
+    .modal-btn-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .modal-btn-text {
+        font-size: 14px;
+    }
+}
+
+/* للشاشات المتوسطة والكبيرة */
+@media (min-width: 768px) {
+    .halqa-info-card {
+        padding: 20px 25px;
+    }
+    
+    .halqa-mosque-name {
+        font-size: 18px;
+    }
+    
+    .halqa-name {
+        font-size: 16px;
+    }
+    
+    .students-table th,
+    .students-table td {
+        padding: 15px 20px;
+    }
+}
+
+/* تقليل الحركة للأجهزة الضعيفة */
+@media (prefers-reduced-motion: reduce) {
+    .status-btn,
+    .recite-btn,
+    .save-btn,
+    .modal-btn,
+    .date-nav-btn,
+    .today-btn {
+        transition: none;
+    }
+}

@@ -1,0 +1,205 @@
+<!-- عند الضغط على اي يوم يقوم بجلب بيانات التحضير لذلك اليوم اذا كان الطالب مثلا غائب في ذلك اليوم يظهر انه غائب وعند حفظ او تعديل الحاله  تتعدل وتنرسل الى قاعده البيانات مسقبلا ان شاء الله اذا ربطتها -->
+<!--عدل زر التبديل بين الايام  -->
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل حضور الطلاب</title>
+    <meta name="description" content="صفحة تسجيل حضور طلاب حلقات التحفيظ">
+    
+    <!-- إعدادات PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a5a4a">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    
+    <!-- إعدادات iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="حلقاتي">
+    
+    <link rel="stylesheet" href="attendance.css">
+</head>
+<body>
+    <!-- ===== الشريط العلوي ===== -->
+    <header class="top-header">
+        <div class="header-content">
+            <!-- زر الرجوع -->
+            <button class="header-icon" id="backButton" title="رجوع" onclick="window.location.href='dashboard.html'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l7-7-7-7"></path>
+                </svg>
+            </button>
+            
+            <!-- عنوان الصفحة -->
+            <h1 class="header-title">تسجيل حضور الطلاب</h1>
+            
+            <!-- أيقونة الخيارات -->
+            <button class="header-icon" id="optionsButton" title="خيارات">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="5" r="1.5" fill="currentColor"></circle>
+                    <circle cx="12" cy="12" r="1.5" fill="currentColor"></circle>
+                    <circle cx="12" cy="19" r="1.5" fill="currentColor"></circle>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== المحتوى الرئيسي ===== -->
+    <main class="main-content">
+        
+        <!-- ===== قسم معلومات الحلقة ===== -->
+        <section class="halqa-info-section">
+            <div class="halqa-info-card">
+                <!-- أيقونة المسجد -->
+                <div class="halqa-icon">
+                    <svg viewBox="0 0 100 80" width="50" height="50">
+                        <ellipse cx="50" cy="40" rx="30" ry="20" fill="#d4af37"/>
+                        <rect x="20" y="40" width="60" height="20" fill="#d4af37"/>
+                        <circle cx="50" cy="25" r="6" fill="#d4af37"/>
+                        <path d="M50 19 L50 12 M46 15 Q50 10 54 15" stroke="#d4af37" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+                <!-- معلومات الحلقة -->
+                <div class="halqa-details">
+                    <h2 class="halqa-mosque-name">جامع أُبي بن كعب</h2>
+                    <p class="halqa-name">حلقة الشجعان</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== قسم اختيار التاريخ ===== -->
+        <section class="date-section">
+            <div class="date-selector">
+                <!-- زر اليوم السابق -->
+                <button class="date-nav-btn" id="prevDayBtn" title="اليوم السابق">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-12"></path>
+                    </svg>
+                </button>
+                
+                <!-- عرض التاريخ -->
+                <div class="date-display">
+                    <span class="date-day" id="dateDay">الأحد</span>
+                    <span class="date-full" id="dateFull">15 يونيو 2025</span>
+                </div>
+                
+                <!-- زر اليوم التالي -->
+                <button class="date-nav-btn" id="nextDayBtn" title="اليوم التالي">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 6l-6 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- زر اليوم الحالي -->
+            <button class="today-btn" id="todayBtn">اليوم</button>
+        </section>
+
+        <!-- ===== قسم قائمة الطلاب ===== -->
+        <section class="students-section">
+            <div class="students-header">
+                <h3 class="students-title">قائمة الطلاب</h3>
+                <span class="students-count" id="studentsCount">6 طلاب</span>
+            </div>
+            
+            <!-- جدول الطلاب -->
+            <div class="students-table-container">
+                <table class="students-table" id="studentsTable">
+                    <thead>
+                        <tr>
+                            <th class="col-name">اسم الطالب</th>
+                            <th class="col-status">الحالة</th>
+                            <th class="col-action">التسميع</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsList">
+                        <!-- الطلاب سيُضافون هنا بواسطة JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== زر حفظ الحضور ===== -->
+    <footer class="bottom-footer">
+        <button class="save-btn" id="saveAttendanceBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+            <span>حفظ الحضور</span>
+        </button>
+    </footer>
+
+    <!-- ===== نافذة خيارات التسميع (Modal) ===== -->
+    <div class="modal-overlay" id="reciteModal">
+        <div class="modal-container">
+            <!-- زر الإغلاق -->
+            <button class="modal-close-btn" id="closeModalBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <!-- عنوان النافذة مع اسم الطالب -->
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalStudentName">اسم الطالب</h2>
+            </div>
+            
+            <!-- أزرار الخيارات (3 أزرار فقط) -->
+            <div class="modal-buttons">
+                <!-- زر ورد يومي -->
+                <button class="modal-btn" data-action="daily-wird">
+                    <div class="modal-btn-icon green">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            <path d="M12 6v6l4 2"></path>
+                        </svg>
+                    </div>
+                    <span class="modal-btn-text">ورد يومي</span>
+                </button>
+                
+                <!-- زر مراجعة صغرى -->
+                <button class="modal-btn" data-action="small-review">
+                    <div class="modal-btn-icon blue">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="M21 21l-4.35-4.35"></path>
+                        </svg>
+                    </div>
+                    <span class="modal-btn-text">مراجعة صغرى</span>
+                </button>
+                
+                <!-- زر مراجعة كبرى -->
+                <button class="modal-btn" data-action="big-review">
+                    <div class="modal-btn-icon orange">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="M21 21l-4.35-4.35"></path>
+                            <path d="M11 8v6"></path>
+                            <path d="M8 11h6"></path>
+                        </svg>
+                    </div>
+                    <span class="modal-btn-text">مراجعة كبرى</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مكتبة Supabase للاتصال بقاعدة البيانات -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- ملف إعدادات التطبيق -->
+    <script src="js/config.js"></script>
+    <!-- ملف إعدادات قاعدة البيانات -->
+    <script src="js/supabase-db.js"></script>
+    <!-- ملف الجافا سكريبت الخاص بالصفحة -->
+    <script src="attendance.js"></script>
+</body>
+</html>

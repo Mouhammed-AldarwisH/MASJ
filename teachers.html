@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة شؤون المعلمين - حلقات التحفيظ</title>
+    <meta name="description" content="صفحة إدارة المعلمين في حلقات التحفيظ">
+    
+    <!-- إعدادات PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a5a4a">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    
+    <!-- إعدادات iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="حلقاتي">
+    
+    <link rel="stylesheet" href="teachers.css">
+</head>
+<body>
+    <!-- ===== الشريط العلوي ===== -->
+    <header class="top-header">
+        <div class="header-content">
+            <!-- زر الرجوع -->
+            <button class="header-icon" id="backBtn" title="رجوع">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l7-7-7-7"></path>
+                </svg>
+            </button>
+            
+            <!-- عنوان الصفحة -->
+            <h1 class="header-title">إدارة شؤون المعلمين</h1>
+            
+            <!-- مكان فارغ للتوازن -->
+            <div class="header-icon" style="visibility: hidden;"></div>
+        </div>
+    </header>
+
+    <!-- ===== المحتوى الرئيسي ===== -->
+    <main class="main-content">
+        <!-- أزرار الإجراءات -->
+        <section class="actions-section">
+            <div class="actions-container">
+                <!-- زر إضافة معلم -->
+                <button class="action-btn add-btn" id="addTeacherBtn">
+                    <div class="btn-frame">
+                        <span class="btn-text">إضافة معلم</span>
+                    </div>
+                </button>
+
+                <!-- زر حذف معلم -->
+                <button class="action-btn delete-btn" id="deleteTeacherBtn">
+                    <div class="btn-frame">
+                        <span class="btn-text">حذف معلم</span>
+                    </div>
+                </button>
+
+                <!-- زر عرض بيانات معلم -->
+                <button class="action-btn info-btn" id="viewTeacherBtn">
+                    <div class="btn-frame">
+                        <span class="btn-text">عرض بيانات معلم</span>
+                    </div>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== نافذة إضافة معلم جديد ===== -->
+    <div class="modal-overlay" id="addTeacherModal">
+        <div class="modal-container">
+            <!-- الزخرفة العلوية -->
+            <div class="modal-decoration top"></div>
+            
+            <!-- عنوان النافذة -->
+            <div class="modal-header">
+                <h2 class="modal-title">تسجيل بيانات المعلم</h2>
+            </div>
+
+            <!-- نموذج البيانات -->
+            <form class="teacher-form" id="teacherForm">
+                <!-- حقل اسم المعلم -->
+                <div class="form-group">
+                    <label class="form-label">اسم المعلم</label>
+                    <div class="input-wrapper">
+                        <input type="text" class="form-input" id="teacherFullName" name="teacherFullName" required>
+                        <span class="input-line"></span>
+                    </div>
+                </div>
+                <!-- حقل اسم المستخدم -->
+                <div class="form-group">
+                    <label class="form-label">اسم المستخدم</label>
+                    <div class="input-wrapper">
+                        <input type="text" class="form-input" id="username" name="username" required>
+                        <span class="input-line"></span>
+                    </div>
+                </div>
+
+                <!-- حقل كلمة المرور -->
+                <div class="form-group">
+                    <label class="form-label">كلمة المرور</label>
+                    <div class="input-wrapper">
+                        <input type="password" class="form-input" id="password" name="password" required>
+                        <span class="input-line"></span>
+                    </div>
+                </div>
+
+                <!-- حقل الحلقات المسندة -->
+                <div class="form-group">
+                    <label class="form-label">الحلقات المسندة</label>
+                    <div class="dropdown-wrapper" id="halaqatDropdown">
+                        <button type="button" class="dropdown-btn" id="dropdownBtn">
+                            <span class="dropdown-text">الحلقات المسندة</span>
+                            <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6"></path>
+                            </svg>
+                        </button>
+                        <!-- قائمة الحلقات -->
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <label class="dropdown-item">
+                                <input type="checkbox" name="halaqat" value="1">
+                                <span class="checkbox-custom"></span>
+                                <span class="item-text">حلقة الشجعان</span>
+                            </label>
+                            <label class="dropdown-item">
+                                <input type="checkbox" name="halaqat" value="2">
+                                <span class="checkbox-custom"></span>
+                                <span class="item-text">حلقة المتميزين</span>
+                            </label>
+                            <label class="dropdown-item">
+                                <input type="checkbox" name="halaqat" value="3">
+                                <span class="checkbox-custom"></span>
+                                <span class="item-text">حلقة النور</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- زر الحفظ -->
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span>حفظ</span>
+                </button>
+            </form>
+
+            <!-- زر الإغلاق -->
+            <button class="modal-close-btn" id="closeModalBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- الزخرفة السفلية -->
+            <div class="modal-decoration bottom"></div>
+        </div>
+    </div>
+
+    <!-- ===== نافذة حذف معلم ===== -->
+    <div class="modal-overlay" id="deleteTeacherModal">
+        <div class="modal-container delete-modal">
+            <!-- عنوان النافذة -->
+            <div class="modal-header">
+                <h2 class="modal-title">حذف معلم</h2>
+            </div>
+
+            <!-- قائمة المعلمين -->
+            <div class="teachers-list" id="teachersList">
+                <!-- المعلمون سيُضافون هنا بواسطة JavaScript -->
+            </div>
+
+            <!-- خانة البحث داخل قائمة الحذف -->
+            <div class="filter-search">
+                <div class="search-wrapper small">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="M21 21l-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" class="search-input" id="deleteTeacherSearch" placeholder="ابحث باسم المعلم أو اسم المستخدم">
+                </div>
+            </div>
+
+            <!-- زر الإغلاق -->
+            <button class="modal-close-btn" id="closeDeleteModalBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- مكتبة Supabase للاتصال بقاعدة البيانات -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- ملف إعدادات التطبيق -->
+    <script src="js/config.js"></script>
+    <!-- ملف إعدادات قاعدة البيانات -->
+    <script src="js/supabase-db.js"></script>
+    <!-- ملف الجافا سكريبت الخاص بالصفحة -->
+    <script src="teachers.js"></script>
+</body>
+</html>

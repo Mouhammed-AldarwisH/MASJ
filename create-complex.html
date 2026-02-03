@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء مجمع حلقات</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        /* أنماط إضافية لنموذج OTP */
+        .otp-section {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .otp-section.active {
+            display: block;
+        }
+        .otp-info {
+            background: #e8f5e9;
+            border: 1px solid #4caf50;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #2e7d32;
+        }
+        .otp-input-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            direction: ltr;
+        }
+        .otp-digit {
+            width: 50px;
+            height: 55px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .otp-digit:focus {
+            border-color: #1a5a4a;
+            background: #fff;
+            outline: none;
+        }
+        .resend-btn {
+            background: none;
+            border: none;
+            color: #1a5a4a;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-top: 15px;
+        }
+        .resend-btn:disabled {
+            color: #999;
+            cursor: not-allowed;
+        }
+        .success-message {
+            background: #e8f5e9;
+            border: 1px solid #4caf50;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .form-section {
+            display: block;
+        }
+        .form-section.hidden {
+            display: none;
+        }
+        .pending-section {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+        .pending-section.active {
+            display: block;
+        }
+        .pending-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-content">
+            <button class="header-icon" onclick="window.location.href='index.html'" title="رجوع">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l7-7-7-7"></path>
+                </svg>
+            </button>
+            <h1 class="header-title">إنشاء مجمع حلقات</h1>
+            <div class="header-spacer"></div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="create-complex-card">
+            
+            <!-- ===== القسم 1: نموذج التسجيل ===== -->
+            <div id="registrationSection" class="form-section">
+                <h2 class="card-title">إنشاء مجمع حلقات جديد</h2>
+                <form id="createComplexForm" class="create-complex-form">
+                    <div class="input-group">
+                        <label class="input-label">اسم المجمع</label>
+                        <input type="text" id="complexName" class="login-input" placeholder="مثال: مجمع حلقات النور" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">اسم المشرف الكامل</label>
+                        <input type="text" id="supervisorUsername" class="login-input" placeholder="الاسم الكامل" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">البريد الإلكتروني</label>
+                        <input type="email" id="supervisorEmail" class="login-input" placeholder="email@example.com" required>
+                        <small style="color: #666;">سيتم إرسال رمز التحقق لهذا البريد</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">كلمة المرور</label>
+                        <input type="password" id="supervisorPassword" class="login-input" placeholder="كلمة المرور (6 أحرف على الأقل)" required minlength="6">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">تأكيد كلمة المرور</label>
+                        <input type="password" id="confirmPassword" class="login-input" placeholder="أعد كتابة كلمة المرور" required>
+                    </div>
+
+                    <div id="createComplexMessage" class="error-message" role="status"></div>
+
+                    <button type="submit" class="login-btn" id="submitBtn">
+                        <span class="btn-text">إنشاء المجمع</span>
+                        <span class="btn-loader" style="display:none;"></span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- ===== القسم 2: التحقق من OTP ===== -->
+            <div id="otpSection" class="otp-section">
+                <h2 class="card-title">تأكيد البريد الإلكتروني</h2>
+                
+                <div class="otp-info">
+                    <p>تم إرسال رمز التحقق إلى بريدك الإلكتروني</p>
+                    <p id="emailDisplay" style="font-weight: bold;"></p>
+                </div>
+
+                <p>أدخل الرمز المكون من 6 أرقام:</p>
+                
+                <div class="otp-input-container">
+                    <input type="text" class="otp-digit" maxlength="1" data-index="0" inputmode="numeric">
+                    <input type="text" class="otp-digit" maxlength="1" data-index="1" inputmode="numeric">
+                    <input type="text" class="otp-digit" maxlength="1" data-index="2" inputmode="numeric">
+                    <input type="text" class="otp-digit" maxlength="1" data-index="3" inputmode="numeric">
+                    <input type="text" class="otp-digit" maxlength="1" data-index="4" inputmode="numeric">
+                    <input type="text" class="otp-digit" maxlength="1" data-index="5" inputmode="numeric">
+                </div>
+
+                <div id="otpMessage" class="error-message" role="status"></div>
+
+                <button type="button" class="login-btn" id="verifyOtpBtn">تأكيد الرمز</button>
+                
+                <button type="button" class="resend-btn" id="resendOtpBtn">
+                    إعادة إرسال الرمز (<span id="countdown">60</span>)
+                </button>
+            </div>
+
+            <!-- ===== القسم 3: انتظار موافقة الإدارة ===== -->
+            <div id="pendingSection" class="pending-section">
+                <div class="pending-icon">⏳</div>
+                <h2 class="card-title">بانتظار موافقة الإدارة</h2>
+                
+                <div class="success-message">
+                    <p>✅ تم تأكيد بريدك الإلكتروني بنجاح!</p>
+                </div>
+                
+                <p style="margin: 20px 0; color: #666;">
+                    طلب إنشاء المجمع قيد المراجعة.<br>
+                    ستتمكن من تسجيل الدخول بعد موافقة الإدارة.
+                </p>
+                
+                <p style="color: #1a5a4a; font-weight: bold;">
+                    سيتم إشعارك عبر البريد الإلكتروني عند القبول.
+                </p>
+                
+                <a href="login.html" class="login-btn" style="display: inline-block; margin-top: 20px; text-decoration: none;">
+                    العودة لصفحة الدخول
+                </a>
+            </div>
+
+            <p class="login-redirect" id="loginLink">لديك حساب؟ <a href="login.html" class="create-link">تسجيل دخول</a></p>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-db.js"></script>
+    <script src="create-complex.js"></script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة شؤون الطلاب - حلقات التحفيظ</title>
+    <meta name="description" content="صفحة إدارة الطلاب في حلقات التحفيظ">
+    
+    <!-- إعدادات PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a5a4a">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    
+    <!-- إعدادات iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="حلقاتي">
+    
+    <link rel="stylesheet" href="students.css">
+</head>
+<body>
+    <!-- ===== الشريط العلوي ===== -->
+    <header class="top-header">
+        <div class="header-content">
+            <!-- زر الرجوع -->
+            <button class="header-icon" id="backBtn" title="رجوع">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l7-7-7-7"></path>
+                </svg>
+            </button>
+            
+            <!-- عنوان الصفحة -->
+            <h1 class="header-title">إدارة شؤون الطلاب</h1>
+            
+            <!-- مكان فارغ للتوازن -->
+            <div class="header-icon" style="visibility: hidden;"></div>
+        </div>
+    </header>
+
+    <!-- ===== المحتوى الرئيسي ===== -->
+    <main class="main-content">
+        <!-- أزرار الإجراءات -->
+        <section class="actions-section">
+            <div class="actions-container">
+                <!-- زر إضافة طالب -->
+                <button class="action-btn add-btn" id="addStudentBtn">
+                    <div class="btn-frame">
+                        <span class="btn-text">إضافة طالب</span>
+                    </div>
+                </button>
+
+                <!-- زر حذف طالب -->
+                <button class="action-btn delete-btn" id="deleteStudentBtn">
+                    <div class="btn-frame">
+                        <span class="btn-text">حذف طالب</span>
+                    </div>
+                </button>
+
+                <!-- زر عرض بيانات طالب -->
+                <button class="action-btn info-btn" id="viewStudentBtn">
+                    <div class="btn-frame">
+                        <span class="btn-text">عرض بيانات طالب</span>
+                    </div>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== نافذة إضافة طالب جديد ===== -->
+    <div class="modal-overlay" id="addStudentModal">
+        <div class="modal-container">
+            <!-- الزخرفة العلوية -->
+            <div class="modal-decoration top"></div>
+            
+            <!-- عنوان النافذة -->
+            <div class="modal-header">
+                <h2 class="modal-title">تسجيل بيانات الطالب</h2>
+            </div>
+
+            <!-- نموذج البيانات -->
+            <form class="student-form" id="studentForm">
+                <!-- حقل اسم الطالب -->
+                <div class="form-group">
+                    <label class="form-label">اسم الطالب</label>
+                    <div class="input-wrapper">
+                        <input type="text" class="form-input" id="studentName" name="studentName" required>
+                        <span class="input-line"></span>
+                    </div>
+                </div>
+
+                <!-- حقل رقم الهاتف -->
+                <div class="form-group">
+                    <label class="form-label">رقم ولي الأمر</label>
+                    <div class="input-wrapper">
+                        <input type="tel" class="form-input" id="parentPhone" name="parentPhone" placeholder="05xxxxxxxx">
+                        <span class="input-line"></span>
+                    </div>
+                </div>
+
+                <!-- حقل اسم ولي الأمر -->
+                <div class="form-group">
+                    <label class="form-label">اسم ولي الأمر</label>
+                    <div class="input-wrapper">
+                        <input type="text" class="form-input" id="parentName" name="parentName" placeholder="اسم ولي الأمر">
+                        <span class="input-line"></span>
+                    </div>
+                </div>
+
+                <!-- حقل الحلقة -->
+                <div class="form-group">
+                    <label class="form-label">الحلقة</label>
+                    <div class="select-wrapper">
+                        <select class="form-select" id="studentHalqa" name="studentHalqa" required>
+                            <option value="">اختر الحلقة</option>
+                            <option value="1">حلقة الشجعان</option>
+                            <option value="2">حلقة المتميزين</option>
+                            <option value="3">حلقة النور</option>
+                        </select>
+                        <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- حقل العمر -->
+                <div class="form-group">
+                    <label class="form-label">العمر</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="form-input" id="studentAge" name="studentAge" min="5" max="50">
+                        <span class="input-line"></span>
+                    </div>
+                </div>
+
+                <!-- زر الحفظ -->
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span>حفظ</span>
+                </button>
+            </form>
+
+            <!-- زر الإغلاق -->
+            <button class="modal-close-btn" id="closeModalBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- الزخرفة السفلية -->
+            <div class="modal-decoration bottom"></div>
+        </div>
+    </div>
+
+    <!-- ===== نافذة حذف طالب ===== -->
+    <div class="modal-overlay" id="deleteStudentModal">
+        <div class="modal-container delete-modal">
+            <!-- عنوان النافذة -->
+            <div class="modal-header">
+                <h2 class="modal-title">حذف طالب</h2>
+            </div>
+
+            <!-- فلتر الحلقات -->
+            <div class="filter-section">
+                <select class="filter-select" id="filterHalqa">
+                    <option value="">كل الحلقات</option>
+                    <option value="1">حلقة الشجعان</option>
+                    <option value="2">حلقة المتميزين</option>
+                    <option value="3">حلقة النور</option>
+                </select>
+            </div>
+
+            <!-- خانة البحث داخل قائمة الحذف -->
+            <div class="filter-search">
+                <div class="search-wrapper small">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="M21 21l-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" class="search-input" id="deleteStudentSearch" placeholder="ابحث باسم الطالب أو رقم ولي الأمر">
+                </div>
+            </div>
+            <!-- قائمة الطلاب -->
+            <div class="students-list" id="studentsList">
+                <!-- الطلاب سيُضافون هنا بواسطة JavaScript -->
+            </div>
+
+            <!-- زر الإغلاق -->
+            <button class="modal-close-btn" id="closeDeleteModalBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== نافذة عرض بيانات الطلاب ===== -->
+    <div class="modal-overlay" id="viewStudentModal">
+        <div class="modal-container view-modal">
+            <!-- عنوان النافذة -->
+            <div class="modal-header">
+                <h2 class="modal-title">بيانات الطلاب</h2>
+            </div>
+
+            <!-- خانة البحث -->
+            <div class="search-section">
+                <div class="search-wrapper">
+                    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="M21 21l-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" class="search-input" id="searchStudentInput" placeholder="ابحث عن طالب...">
+                </div>
+            </div>
+
+            <!-- فلتر الحلقات -->
+            <div class="filter-section">
+                <select class="filter-select" id="viewFilterHalqa">
+                    <option value="">كل الحلقات</option>
+                    <option value="1">حلقة الشجعان</option>
+                    <option value="2">حلقة المتميزين</option>
+                    <option value="3">حلقة النور</option>
+                </select>
+            </div>
+
+            <!-- جدول الطلاب -->
+            <div class="students-table-wrapper">
+                <table class="students-data-table" id="studentsDataTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>اسم الطالب</th>
+                            <th>الحلقة</th>
+                            <th>رقم ولي الأمر</th>
+                            <th>العمر</th>
+                            <th>تفاصيل</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody">
+                        <!-- الطلاب سيُضافون هنا بواسطة JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- زر الإغلاق -->
+            <button class="modal-close-btn" id="closeViewModalBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- مكتبة Supabase للاتصال بقاعدة البيانات -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- ملف إعدادات التطبيق -->
+    <script src="js/config.js"></script>
+    <!-- ملف إعدادات قاعدة البيانات -->
+    <script src="js/supabase-db.js"></script>
+    <!-- ملف الجافا سكريبت الخاص بالصفحة -->
+    <script src="students.js"></script>
+</body>
+</html>

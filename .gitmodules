@@ -1,0 +1,3 @@
+[submodule "external/MASJ"]
+	path = external/MASJ
+	url = https://github.com/Mouhammed-AldarwisH/MASJ.git

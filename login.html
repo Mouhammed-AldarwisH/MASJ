@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل دخول المعلم</title>
+    <meta name="description" content="صفحة تسجيل دخول معلمي حلقات التحفيظ">
+    
+    <!-- إعدادات PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a5a4a">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    
+    <!-- إعدادات iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="حلقاتي">
+    
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <!-- ===== الشريط العلوي ===== -->
+    <header class="top-header">
+        <div class="header-content">
+            <!-- زر الرجوع -->
+            <button class="header-icon" id="backButton" title="رجوع" onclick="window.location.href='index.html'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l7-7-7-7"></path>
+                </svg>
+            </button>
+            
+            <!-- عنوان الصفحة -->
+            <h1 class="header-title">تسجيل دخول المعلم</h1>
+            
+            <!-- عنصر فارغ للتوازن -->
+            <div class="header-spacer"></div>
+        </div>
+    </header>
+    
+    <!-- ===== المحتوى الرئيسي ===== -->
+    <main class="main-content">
+        
+        <!-- ===== بطاقة تسجيل الدخول ===== -->
+        <div class="login-card">
+            <!-- أيقونة المستخدم -->
+            <div class="login-icon">
+                <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            
+            <!-- ===== نموذج تسجيل الدخول ===== -->
+            <form class="login-form" id="loginForm">
+                
+                <!-- حقل البريد الإلكتروني -->
+                <div class="input-group">
+                    <label class="input-label">البريد الإلكتروني</label>
+                    <input 
+                        type="email" 
+                        id="emailInput" 
+                        class="login-input" 
+                        placeholder="أدخل البريد الإلكتروني"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+                
+                <!-- حقل كلمة المرور -->
+                <div class="input-group">
+                    <label class="input-label">كلمة المرور</label>
+                    <div class="password-wrapper">
+                        <input 
+                            type="password" 
+                            id="passwordInput" 
+                            class="login-input" 
+                            placeholder="أدخل كلمة المرور"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <!-- زر إظهار/إخفاء كلمة المرور -->
+                        <button type="button" class="toggle-password" id="togglePassword" title="إظهار كلمة المرور">
+                            <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- رسالة الخطأ -->
+                <div class="error-message" id="errorMessage">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span id="errorText">البريد الإلكتروني أو كلمة المرور غير صحيحة</span>
+                </div>
+                
+                <!-- زر تسجيل الدخول -->
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <span class="btn-text">تسجيل الدخول</span>
+                    <span class="btn-loader" id="btnLoader"></span>
+                </button>
+                
+            </form>
+        </div>
+        
+        <!-- ===== دعوة إنشاء مجمع تحت نموذج تسجيل الدخول ===== -->
+        <div class="create-promo" style="max-width:520px;width:100%;margin:14px auto 18px;text-align:center;">
+            <p class="create-text">ليس لديك حساب؟</p>
+            <a href="create-complex.html" class="create-link">إنشاء مجمع</a>
+        </div>
+
+        <!-- ===== معلومات التجربة (تظهر في وضع التطوير فقط) ===== -->
+        <div class="demo-info" id="demoInfo" style="display: none;">
+            <p class="demo-title">بيانات تجريبية:</p>
+            <div class="demo-credentials">
+                <div class="credential-item">
+                    <span class="credential-role">المشرف:</span>
+                    <span class="credential-email">admin@masjed.com</span>
+                    <span class="credential-pass">admin123</span>
+                </div>
+                <div class="credential-item">
+                    <span class="credential-role">المعلم:</span>
+                    <span class="credential-email">teacher@masjed.com</span>
+                    <span class="credential-pass">teacher123</span>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <!-- مكتبة Supabase للاتصال بقاعدة البيانات -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- ملف إعدادات التطبيق (يجب تحديثه قبل النشر) -->
+    <script src="js/config.js"></script>
+    <!-- ملف إعدادات قاعدة البيانات -->
+    <script src="js/supabase-db.js"></script>
+    <!-- ملف الجافا سكريبت الخاص بالصفحة -->
+    <script src="login.js"></script>
+</body>
+</html>

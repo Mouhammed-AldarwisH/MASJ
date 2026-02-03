@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الحلقة</title>
+    <meta name="description" content="تفاصيل الحلقة - المعلمون والطلاب">
+    <link rel="stylesheet" href="students.css">
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-content">
+            <button class="header-icon" id="backBtn" title="رجوع">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l7-7-7-7"></path>
+                </svg>
+            </button>
+            <h1 class="header-title" id="halqaTitle">تفاصيل الحلقة</h1>
+            <div class="header-icon" style="visibility: hidden;"></div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="details-section">
+            <div class="container">
+                <h2>المعلمين</h2>
+                <div id="teachersList" class="teachers-list">
+                    <!-- teacher items inserted here -->
+                </div>
+
+                <h2 style="margin-top:18px;">الطلاب</h2>
+                <div class="students-table-wrapper">
+                    <table class="students-data-table" id="halaqaStudentsTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>اسم الطالب</th>
+                                <th>ولي الأمر / هاتف</th>
+                                <th>العمر</th>
+                                <th>تفاصيل</th>
+                            </tr>
+                        </thead>
+                        <tbody id="halaqaStudentsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-db.js"></script>
+    <script src="halaqa-details.js"></script>
+</body>
+</html>

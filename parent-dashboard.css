@@ -1,0 +1,297 @@
+/* ===== إعادة التعيين الأساسية ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f0e8;
+    min-height: 100vh;
+    direction: rtl;
+}
+
+/* ===== الشريط العلوي ===== */
+.top-header {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.header-title {
+    font-size: 16px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+}
+
+.header-icon {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    position: relative;
+    transition: background 0.3s ease;
+}
+
+.header-icon:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ===== المحتوى الرئيسي ===== */
+.main-content {
+    padding: 20px 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== قسم الترحيب ===== */
+.welcome-section {
+    margin-bottom: 25px;
+}
+
+.welcome-card {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 5px 20px rgba(26, 90, 74, 0.3);
+}
+
+.welcome-icon {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d4af37;
+}
+
+.welcome-text {
+    flex: 1;
+}
+
+.welcome-greeting {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 5px;
+}
+
+.welcome-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+}
+
+/* ===== عنوان القسم ===== */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.section-title {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+}
+
+.students-count {
+    font-size: 14px;
+    color: #1a5a4a;
+    background: #e8f5f0;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* ===== قائمة الطلاب ===== */
+.students-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ===== بطاقة الطالب ===== */
+.student-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-right: 4px solid #1a5a4a;
+}
+
+.student-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+}
+
+.student-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.student-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.student-halqa {
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.student-halqa span {
+    color: #1a5a4a;
+    font-weight: 600;
+}
+
+.student-age {
+    font-size: 13px;
+    color: #888;
+}
+
+/* ===== زر التفاصيل ===== */
+.details-btn {
+    background: linear-gradient(135deg, #d4af37 0%, #c9a030 100%);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(212, 175, 55, 0.3);
+}
+
+.details-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+}
+
+.details-btn:active {
+    transform: scale(0.98);
+}
+
+/* ===== رسالة لا يوجد طلاب ===== */
+.no-students {
+    text-align: center;
+    padding: 50px 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.empty-icon {
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.no-students p {
+    font-size: 16px;
+    color: #888;
+}
+
+/* ===== التصميم المتجاوب ===== */
+@media (max-width: 480px) {
+    .header-title {
+        font-size: 14px;
+    }
+    
+    .welcome-card {
+        padding: 20px 15px;
+        gap: 15px;
+    }
+    
+    .welcome-icon {
+        width: 55px;
+        height: 55px;
+    }
+    
+    .welcome-name {
+        font-size: 18px;
+    }
+    
+    .student-card {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        border-right: none;
+        border-top: 4px solid #1a5a4a;
+    }
+    
+    .student-info {
+        align-items: center;
+    }
+    
+    .details-btn {
+        width: 100%;
+        padding: 14px;
+    }
+}
+
+/* للشاشات المتوسطة والكبيرة */
+@media (min-width: 768px) {
+    .header-title {
+        font-size: 20px;
+    }
+    
+    .welcome-name {
+        font-size: 26px;
+    }
+    
+    .section-title {
+        font-size: 20px;
+    }
+    
+    .student-card {
+        padding: 25px;
+    }
+    
+    .student-name {
+        font-size: 18px;
+    }
+}
+
+/* تقليل الحركة للأجهزة الضعيفة */
+@media (prefers-reduced-motion: reduce) {
+    .student-card,
+    .details-btn,
+    .header-icon {
+        transition: none;
+    }
+}

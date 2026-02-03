@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل التسميع - حلقات التحفيظ</title>
+    <meta name="description" content="صفحة تسجيل تسميع الطالب">
+    
+    <!-- إعدادات PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a5a4a">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    
+    <!-- إعدادات iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="حلقاتي">
+    
+    <link rel="stylesheet" href="recitation.css">
+</head>
+<body>
+    <!-- ===== الشريط العلوي ===== -->
+    <header class="top-header">
+        <div class="header-content">
+            <!-- زر الرجوع -->
+            <button class="header-icon" id="backToAttendanceBtn" title="رجوع للتحضير">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l7-7-7-7"></path>
+                </svg>
+            </button>
+            
+            <!-- عنوان الصفحة -->
+            <h1 class="header-title">تسجيل التسميع</h1>
+            
+            <!-- مكان فارغ للتوازن -->
+            <div class="header-icon" style="visibility: hidden;"></div>
+        </div>
+    </header>
+
+    <!-- ===== المحتوى الرئيسي ===== -->
+    <main class="main-content">
+        <!-- ===== معلومات الطالب ===== -->
+        <section class="student-info-section">
+            <div class="student-info-card">
+                <p class="student-name" id="studentName">اسم الطالب</p>
+                <span class="recitation-type" id="recitationType">ورد يومي</span>
+            </div>
+        </section>
+
+        <!-- ===== قسم بداية التسميع ===== -->
+        <section class="recitation-section">
+            <div class="section-header-bar">
+                <h2 class="section-title">بداية التسميع</h2>
+            </div>
+            <div class="input-row">
+                <!-- اختيار السورة -->
+                <div class="input-group">
+                    <label class="input-label">سورة</label>
+                    <select class="input-select" id="startSurah">
+                        <!-- السور ستُضاف بواسطة JavaScript -->
+                    </select>
+                </div>
+                <!-- رقم الصفحة -->
+                <div class="input-group">
+                    <label class="input-label">صفحة</label>
+                    <input type="number" class="input-field" id="startPage" min="1" max="604" placeholder="1">
+                </div>
+                <!-- رقم الآية -->
+                <div class="input-group">
+                    <label class="input-label">آية</label>
+                    <input type="number" class="input-field" id="startAyah" min="1" placeholder="1">
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== قسم نهاية التسميع ===== -->
+        <section class="recitation-section">
+            <div class="section-header-bar">
+                <h2 class="section-title">نهاية التسميع</h2>
+            </div>
+            <div class="input-row">
+                <!-- اختيار السورة -->
+                <div class="input-group">
+                    <label class="input-label">سورة</label>
+                    <select class="input-select" id="endSurah">
+                        <!-- السور ستُضاف بواسطة JavaScript -->
+                    </select>
+                </div>
+                <!-- رقم الصفحة -->
+                <div class="input-group">
+                    <label class="input-label">صفحة</label>
+                    <input type="number" class="input-field" id="endPage" min="1" max="604" placeholder="1">
+                </div>
+                <!-- رقم الآية -->
+                <div class="input-group">
+                    <label class="input-label">آية</label>
+                    <input type="number" class="input-field" id="endAyah" min="1" placeholder="1">
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== قسم الدرجة والأخطاء ===== -->
+        <section class="scores-section">
+            <!-- مربع الدرجة -->
+            <div class="score-box">
+                <h3 class="score-title">الدرجة</h3>
+                <div class="score-display">
+                    <span class="score-value" id="gradeValue">15</span>
+                </div>
+                <div class="score-controls">
+                    <button class="control-btn minus-btn" id="gradeMinus">−</button>
+                    <button class="control-btn plus-btn" id="gradePlus">+</button>
+                </div>
+            </div>
+
+            <!-- مربع عدد الأخطاء -->
+            <div class="score-box errors-box">
+                <h3 class="score-title">عدد الأخطاء</h3>
+                <div class="score-display">
+                    <span class="score-value" id="errorsValue">0</span>
+                </div>
+                <div class="score-controls">
+                    <button class="control-btn minus-btn" id="errorsMinus">−</button>
+                    <button class="control-btn plus-btn" id="errorsPlus">+</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== زر الحفظ ===== -->
+        <footer class="save-section">
+            <button class="save-btn" id="saveBtn">حفظ التسميع</button>
+        </footer>
+    </main>
+
+    <!-- مكتبة Supabase للاتصال بقاعدة البيانات -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- ملف إعدادات التطبيق -->
+    <script src="js/config.js"></script>
+    <!-- ملف إعدادات قاعدة البيانات -->
+    <script src="js/supabase-db.js"></script>
+    <!-- ملف الجافا سكريبت الخاص بالصفحة -->
+    <script src="recitation.js"></script>
+</body>
+</html>

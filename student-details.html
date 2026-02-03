@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الطالب - حلقات التحفيظ</title>
+    <meta name="description" content="صفحة تفاصيل الطالب في حلقات التحفيظ">
+    
+    <!-- إعدادات PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a5a4a">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    
+    <!-- إعدادات iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="حلقاتي">
+    
+    <link rel="stylesheet" href="student-details.css">
+</head>
+<body>
+    <!-- ===== الشريط العلوي ===== -->
+    <header class="top-header">
+        <div class="header-content">
+            <!-- زر الرجوع -->
+            <button class="header-icon" id="backToStudents" title="رجوع">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l7-7-7-7"></path>
+                </svg>
+            </button>
+            
+            <!-- عنوان الصفحة -->
+            <h1 class="header-title">تفاصيل الطالب</h1>
+            
+            <!-- مكان فارغ للتوازن -->
+            <div class="header-icon" style="visibility: hidden;"></div>
+        </div>
+    </header>
+
+    <!-- ===== معلومات الطالب ===== -->
+    <section class="student-info-section">
+        <div class="student-info-card">
+            <div class="student-avatar">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <div class="student-details">
+                <h2 id="sdStudentName">اسم الطالب</h2>
+                <p id="sdHalqaName">الحلقة</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== المحتوى الرئيسي ===== -->
+    <main class="main-content">
+        <div class="view-toggle">
+            <button id="attendanceBtn" class="toggle-btn active">الحضور</button>
+            <button id="recitationBtn" class="toggle-btn">التسميع</button>
+        </div>
+
+        <section id="attendanceView" class="sd-section">
+            <div class="week-controls">
+                <button id="prevWeek" class="nav-btn">السابق</button>
+                <div class="week-label" id="weekLabel">الأسبوع الحالي</div>
+                <button id="nextWeek" class="nav-btn">التالي</button>
+            </div>
+
+            <div class="attendance-table-wrapper">
+                <table class="attendance-table">
+                    <thead>
+                        <tr>
+                            <th>اليوم</th>
+                            <th>التاريخ</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendanceBody">
+                        <!-- يتم ملؤها بواسطة JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="recitationView" class="sd-section" style="display:none;">
+            <div class="recitation-day-controls">
+                <button id="prevRecDay" class="nav-btn">السابق</button>
+                <div id="recDateLabel" class="rec-date-label">اليوم</div>
+                <button id="nextRecDay" class="nav-btn">التالي</button>
+            </div>
+
+            <div class="recitation-list-wrapper">
+                <ul id="recitationList" class="recitation-list">
+                    <!-- عناصر التسميع اليومية ستُضاف هنا بواسطة JS -->
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- مكتبة Supabase للاتصال بقاعدة البيانات -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- ملف إعدادات التطبيق -->
+    <script src="js/config.js"></script>
+    <!-- ملف إعدادات قاعدة البيانات -->
+    <script src="js/supabase-db.js"></script>
+    <!-- ملف الجافا سكريبت الخاص بالصفحة -->
+    <script src="student-details.js"></script>
+</body>
+</html>

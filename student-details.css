@@ -1,0 +1,463 @@
+/* ===== إعادة التعيين الأساسية ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f0e8;
+    min-height: 100vh;
+    direction: rtl;
+}
+
+/* ===== الشريط العلوي ===== */
+.top-header {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.header-title {
+    font-size: 16px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+}
+
+.header-icon {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: background 0.3s ease;
+}
+
+.header-icon:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ===== قسم معلومات الطالب ===== */
+.student-info-section {
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.student-info-card {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(26, 90, 74, 0.3);
+}
+
+.student-avatar {
+    background: rgba(212, 175, 55, 0.2);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #d4af37;
+}
+
+.student-details {
+    flex: 1;
+}
+
+.student-details h2 {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.student-details p {
+    font-size: 14px;
+    color: #d4af37;
+    font-weight: 600;
+}
+
+/* ===== المحتوى الرئيسي ===== */
+.main-content {
+    padding: 0 16px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== أزرار التبديل ===== */
+.view-toggle {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 25px;
+    border: 2px solid #ddd;
+    background: white;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn.active {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 3px 10px rgba(26, 90, 74, 0.3);
+}
+
+.toggle-btn:not(.active):hover {
+    border-color: #1a5a4a;
+    color: #1a5a4a;
+}
+
+/* ===== أزرار التنقل ===== */
+.nav-btn {
+    padding: 10px 16px;
+    border-radius: 20px;
+    border: 2px solid #d4af37;
+    background: white;
+    cursor: pointer;
+    font-weight: 600;
+    color: #1a5a4a;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background: #d4af37;
+    color: white;
+}
+
+/* ===== تحكم الأسبوع ===== */
+.week-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 10px;
+}
+
+.week-label {
+    flex: 1;
+    text-align: center;
+    font-weight: 700;
+    color: #333;
+    font-size: 14px;
+}
+
+/* ===== جدول الحضور ===== */
+.attendance-table-wrapper {
+    overflow: auto;
+    background: white;
+    padding: 12px;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.attendance-table thead {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+}
+
+.attendance-table th {
+    padding: 12px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.attendance-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+}
+
+.attendance-table tbody tr:hover {
+    background: #f8f8f8;
+}
+
+.attendance-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ===== حالات الحضور ===== */
+.status-present {
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 6px 12px;
+    display: inline-block;
+}
+
+.status-absent {
+    background: #ffebee;
+    color: #c62828;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 6px 12px;
+    display: inline-block;
+}
+
+.status-late {
+    background: #fff8e1;
+    color: #f57f17;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 6px 12px;
+    display: inline-block;
+}
+
+.status-excused {
+    background: #e3f2fd;
+    color: #1565c0;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 6px 12px;
+    display: inline-block;
+}
+
+/* ===== قسم التسميع ===== */
+.recitation-day-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.rec-date-label {
+    flex: 1;
+    text-align: center;
+    font-weight: 700;
+    color: #333;
+    font-size: 14px;
+}
+
+.recitation-list-wrapper {
+    background: white;
+    padding: 12px;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.recitation-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.rec-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    background: #fafafa;
+    transition: all 0.3s ease;
+}
+
+.rec-item:hover {
+    border-color: #d4af37;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.rec-item .rec-type {
+    font-weight: 700;
+    color: #1a5a4a;
+    font-size: 15px;
+}
+
+.rec-item .rec-range {
+    color: #444;
+}
+
+.rec-item .rec-meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.rec-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.rec-grade {
+    background: linear-gradient(135deg, #2563eb, #38bdf8);
+}
+
+.rec-errors {
+    background: linear-gradient(135deg, #ef4444, #f97316);
+}
+
+/* ===== جداول وصناديق التسميع ===== */
+.rec-tables {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.rec-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.rec-table thead th {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    padding: 10px;
+    text-align: center;
+    font-weight: 700;
+    color: white;
+    font-size: 13px;
+}
+
+.rec-table td {
+    padding: 10px;
+    text-align: center;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.rec-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.rec-boxes {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.rec-box {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    font-size: 14px;
+}
+
+.rec-box.rec-errors {
+    background: linear-gradient(135deg, #ef4444, #f97316);
+}
+
+.rec-box.rec-grade {
+    background: linear-gradient(135deg, #2563eb, #38bdf8);
+}
+
+/* ===== التصميم المتجاوب ===== */
+@media (max-width: 480px) {
+    .header-title {
+        font-size: 14px;
+    }
+    
+    .student-info-card {
+        padding: 15px;
+    }
+    
+    .student-details h2 {
+        font-size: 16px;
+    }
+    
+    .toggle-btn {
+        padding: 10px;
+        font-size: 13px;
+    }
+    
+    .nav-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    .attendance-table th,
+    .attendance-table td {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+    
+    .rec-tables {
+        flex-direction: column;
+    }
+    
+    .rec-boxes {
+        flex-direction: column;
+    }
+}
+
+/* للشاشات المتوسطة والكبيرة */
+@media (min-width: 768px) {
+    .header-title {
+        font-size: 20px;
+    }
+    
+    .student-info-card {
+        padding: 25px;
+    }
+    
+    .student-details h2 {
+        font-size: 20px;
+    }
+    
+    .toggle-btn {
+        padding: 14px;
+        font-size: 16px;
+    }
+}
+
+/* تقليل الحركة للأجهزة الضعيفة */
+@media (prefers-reduced-motion: reduce) {
+    .toggle-btn,
+    .nav-btn,
+    .rec-item,
+    .header-icon {
+        transition: none;
+    }
+}

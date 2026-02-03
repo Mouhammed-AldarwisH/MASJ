@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة مستخدم جديد</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        .register-card {
+            max-width: 500px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .card-title {
+            text-align: center;
+            color: #1a5a4a;
+            margin-bottom: 25px;
+        }
+        .role-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .role-btn {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .role-btn:hover {
+            border-color: #1a5a4a;
+        }
+        .role-btn.active {
+            border-color: #1a5a4a;
+            background: #e8f5e9;
+        }
+        .role-btn .role-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+        .role-btn .role-name {
+            font-weight: bold;
+            color: #333;
+        }
+        .success-box {
+            background: #e8f5e9;
+            border: 1px solid #4caf50;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+        .success-box.show {
+            display: block;
+        }
+        .credentials-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: right;
+        }
+        .credentials-box h4 {
+            margin: 0 0 10px 0;
+            color: #856404;
+        }
+        .credential-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ffc107;
+        }
+        .credential-item:last-child {
+            border-bottom: none;
+        }
+        .copy-btn {
+            background: #1a5a4a;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .copy-btn:hover {
+            background: #145a4a;
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-content">
+            <button class="header-icon" onclick="window.history.back()" title="رجوع">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l7-7-7-7"></path>
+                </svg>
+            </button>
+            <h1 class="header-title">إضافة مستخدم جديد</h1>
+            <div class="header-spacer"></div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="register-card">
+            <h2 class="card-title">إنشاء حساب جديد</h2>
+            
+            <!-- اختيار نوع المستخدم -->
+            <div class="role-selector">
+                <button class="role-btn active" data-role="student">
+                    <div class="role-icon">👨‍🎓</div>
+                    <div class="role-name">طالب</div>
+                </button>
+                <button class="role-btn" data-role="teacher">
+                    <div class="role-icon">👨‍🏫</div>
+                    <div class="role-name">معلم</div>
+                </button>
+                <button class="role-btn" data-role="parent">
+                    <div class="role-icon">👨‍👦</div>
+                    <div class="role-name">ولي أمر</div>
+                </button>
+            </div>
+            
+            <!-- نموذج التسجيل -->
+            <form id="registerForm" class="login-form">
+                <div class="input-group">
+                    <label class="input-label">اسم المستخدم (للدخول)</label>
+                    <input type="text" id="usernameInput" class="login-input" placeholder="مثال: ahmed123" required>
+                    <small style="color: #888;">يُستخدم لتسجيل الدخول - بدون مسافات</small>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">الاسم الكامل</label>
+                    <input type="text" id="fullNameInput" class="login-input" placeholder="الاسم الثلاثي" required>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">رقم الجوال (اختياري)</label>
+                    <input type="tel" id="phoneInput" class="login-input" placeholder="05xxxxxxxx">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">كلمة المرور</label>
+                    <input type="password" id="passwordInput" class="login-input" placeholder="6 أحرف على الأقل" required minlength="6">
+                </div>
+                
+                <div id="errorMessage" class="error-message"></div>
+                
+                <button type="submit" class="login-btn" id="submitBtn">
+                    <span class="btn-text">إنشاء الحساب</span>
+                    <span class="btn-loader" style="display:none;"></span>
+                </button>
+            </form>
+            
+            <!-- رسالة النجاح -->
+            <div id="successBox" class="success-box">
+                <h3 style="color: #2e7d32; margin-bottom: 15px;">✅ تم إنشاء الحساب بنجاح!</h3>
+                
+                <div class="credentials-box">
+                    <h4>بيانات الدخول:</h4>
+                    <div class="credential-item">
+                        <span>اسم المستخدم:</span>
+                        <span id="createdUsername" style="font-weight: bold;"></span>
+                    </div>
+                    <div class="credential-item">
+                        <span>رقم المجمع:</span>
+                        <span id="createdComplexCode" style="font-weight: bold;"></span>
+                    </div>
+                    <div class="credential-item">
+                        <span>كلمة المرور:</span>
+                        <span id="createdPassword" style="font-weight: bold;"></span>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 15px; color: #666; font-size: 14px;">
+                    ⚠️ احفظ هذه البيانات وسلّمها للمستخدم
+                </p>
+                
+                <button type="button" class="login-btn" onclick="resetForm()" style="margin-top: 15px;">
+                    إضافة مستخدم آخر
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-db.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // =============================================
+            // تهيئة Supabase
+            // =============================================
+            var supabaseClient = null;
+            var edgeFunctionUrl = '';
+            
+            if (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.isSupabaseConfigured()) {
+                supabaseClient = supabase.createClient(
+                    APP_CONFIG.SUPABASE_URL,
+                    APP_CONFIG.SUPABASE_ANON_KEY
+                );
+                edgeFunctionUrl = APP_CONFIG.SUPABASE_URL + '/functions/v1/create-user';
+            }
+            
+            // =============================================
+            // التحقق من تسجيل الدخول كمشرف
+            // =============================================
+            var currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            if (currentUser.role !== 'supervisor') {
+                alert('هذه الصفحة للمشرفين فقط');
+                window.location.href = 'user-login.html';
+                return;
+            }
+            
+            var complexId = currentUser.complexId;
+            
+            // =============================================
+            // العناصر
+            // =============================================
+            var roleBtns = document.querySelectorAll('.role-btn');
+            var registerForm = document.getElementById('registerForm');
+            var usernameInput = document.getElementById('usernameInput');
+            var fullNameInput = document.getElementById('fullNameInput');
+            var phoneInput = document.getElementById('phoneInput');
+            var passwordInput = document.getElementById('passwordInput');
+            var submitBtn = document.getElementById('submitBtn');
+            var errorMessage = document.getElementById('errorMessage');
+            var successBox = document.getElementById('successBox');
+            
+            var selectedRole = 'student';
+            
+            // =============================================
+            // اختيار الدور
+            // =============================================
+            roleBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    roleBtns.forEach(function(b) { b.classList.remove('active'); });
+                    btn.classList.add('active');
+                    selectedRole = btn.getAttribute('data-role');
+                });
+            });
+            
+            // =============================================
+            // إرسال النموذج
+            // =============================================
+            registerForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                var username = usernameInput.value.trim().toLowerCase().replace(/\s/g, '');
+                var fullName = fullNameInput.value.trim();
+                var phone = phoneInput.value.trim();
+                var password = passwordInput.value;
+                
+                // التحقق
+                if (!username || !fullName || !password) {
+                    showError('يرجى ملء جميع الحقول المطلوبة');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showError('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+                    return;
+                }
+                
+                // إظهار التحميل
+                submitBtn.disabled = true;
+                submitBtn.querySelector('.btn-text').textContent = 'جاري الإنشاء...';
+                hideError();
+                
+                try {
+                    // استدعاء Edge Function
+                    var response = await fetch(edgeFunctionUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + APP_CONFIG.SUPABASE_ANON_KEY
+                        },
+                        body: JSON.stringify({
+                            username: username,
+                            password: password,
+                            complex_id: complexId,
+                            role: selectedRole,
+                            user_name: fullName,
+                            phone: phone
+                        })
+                    });
+                    
+                    var result = await response.json();
+                    
+                    if (!result.success) {
+                        throw new Error(result.message);
+                    }
+                    
+                    // عرض النجاح
+                    showSuccess(username, complexId, password);
+                    
+                } catch (error) {
+                    showError(error.message || 'حدث خطأ أثناء إنشاء الحساب');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.querySelector('.btn-text').textContent = 'إنشاء الحساب';
+                }
+            });
+            
+            // =============================================
+            // دوال مساعدة
+            // =============================================
+            function showError(msg) {
+                errorMessage.textContent = msg;
+                errorMessage.className = 'error-message show';
+            }
+            
+            function hideError() {
+                errorMessage.className = 'error-message';
+            }
+            
+            function showSuccess(username, complexCode, password) {
+                registerForm.style.display = 'none';
+                document.querySelector('.role-selector').style.display = 'none';
+                
+                document.getElementById('createdUsername').textContent = username;
+                document.getElementById('createdComplexCode').textContent = complexCode;
+                document.getElementById('createdPassword').textContent = password;
+                
+                successBox.classList.add('show');
+            }
+            
+            // دالة عامة لإعادة تعيين النموذج
+            window.resetForm = function() {
+                registerForm.style.display = 'block';
+                document.querySelector('.role-selector').style.display = 'flex';
+                successBox.classList.remove('show');
+                registerForm.reset();
+            };
+            
+        });
+    </script>
+</body>
+</html>

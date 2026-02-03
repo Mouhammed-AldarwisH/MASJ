@@ -1,0 +1,259 @@
+/* ===== إعادة التعيين الأساسية ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f0e8;
+    min-height: 100vh;
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== الشريط العلوي ===== */
+.top-header {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.header-title {
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ===== المحتوى الرئيسي ===== */
+.main-content {
+    flex: 1;
+    padding: 20px 16px;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ===== بطاقة الترحيب ===== */
+.welcome-card {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    border-radius: 20px;
+    padding: 30px 25px;
+    text-align: center;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 25px rgba(26, 90, 74, 0.3);
+}
+
+.welcome-icon {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.welcome-title {
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.welcome-subtitle {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ===== أزرار الدخول ===== */
+.login-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-btn {
+    background: white;
+    border: none;
+    border-radius: 15px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: right;
+    position: relative;
+}
+
+.login-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+/* أيقونة الزر */
+.btn-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.teacher-btn .btn-icon {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.15) 0%, rgba(76, 175, 80, 0.25) 100%);
+    color: #4CAF50;
+}
+
+.supervisor-btn .btn-icon {
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.15) 0%, rgba(33, 150, 243, 0.25) 100%);
+    color: #2196F3;
+}
+
+.parent-btn .btn-icon {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.25) 100%);
+    color: #FF9800;
+}
+
+.login-main-btn .btn-icon {
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.15) 0%, rgba(156, 39, 176, 0.25) 100%);
+    color: #9C27B0;
+}
+
+/* نصوص الزر */
+.btn-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.btn-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.btn-desc {
+    font-size: 12px;
+    color: #888;
+}
+
+/* سهم الزر */
+.btn-arrow {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ccc;
+    transition: color 0.3s ease, left 0.3s ease;
+}
+
+.login-btn:hover .btn-arrow {
+    color: #1a5a4a;
+    left: 15px;
+}
+
+/* ===== الفوتر ===== */
+.main-footer {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+    font-size: 13px;
+}
+
+/* ===== التصميم المتجاوب ===== */
+@media (max-width: 480px) {
+    .header-title {
+        font-size: 16px;
+    }
+    
+    .welcome-card {
+        padding: 25px 20px;
+    }
+    
+    .welcome-icon {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .welcome-title {
+        font-size: 18px;
+    }
+    
+    .login-btn {
+        padding: 15px;
+    }
+    
+    .btn-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .btn-title {
+        font-size: 14px;
+    }
+}
+
+/* للشاشات المتوسطة والكبيرة */
+@media (min-width: 768px) {
+    .header-title {
+        font-size: 22px;
+    }
+    
+    .welcome-title {
+        font-size: 26px;
+    }
+    
+    .welcome-subtitle {
+        font-size: 16px;
+    }
+    
+    .login-btn {
+        padding: 22px 25px;
+    }
+    
+    .btn-icon {
+        width: 65px;
+        height: 65px;
+    }
+    
+    .btn-title {
+        font-size: 18px;
+    }
+    
+    .btn-desc {
+        font-size: 14px;
+    }
+}
+
+/* تقليل الحركة للأجهزة الضعيفة */
+@media (prefers-reduced-motion: reduce) {
+    .login-btn,
+    .btn-arrow {
+        transition: none;
+    }
+}

@@ -1,0 +1,235 @@
+/* ===== إعادة التعيين الأساسية ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f0e8;
+    min-height: 100vh;
+    direction: rtl;
+}
+
+/* ===== الشريط العلوي ===== */
+.top-header {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.header-title {
+    font-size: 16px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+}
+
+.header-icon {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    position: relative;
+    transition: background 0.3s ease;
+}
+
+.header-icon:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* نقطة الإشعارات الحمراء */
+.notification-dot {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    background-color: #ff4444;
+    border-radius: 50%;
+}
+
+/* ===== المحتوى الرئيسي ===== */
+.main-content {
+    padding: 20px 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.section-header {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* ===== شبكة البطاقات ===== */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+/* ===== تصميم البطاقة ===== */
+.halqa-card {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 50%, #1a5a4a 100%);
+    border-radius: 15px;
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.halqa-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(26, 90, 74, 0.4);
+}
+
+/* الزخرفة الإسلامية على اليسار */
+.card-decoration {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 40%;
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.3) 0%, transparent 100%);
+    border-radius: 15px 0 0 15px;
+}
+
+/* نمط الزخرفة */
+.card-decoration::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 80%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 200'%3E%3Cpath d='M50 10 L90 50 L50 90 L10 50 Z' fill='none' stroke='%23d4af37' stroke-width='1' opacity='0.5'/%3E%3Cpath d='M50 60 L80 90 L50 120 L20 90 Z' fill='none' stroke='%23d4af37' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M50 110 L70 130 L50 150 L30 130 Z' fill='none' stroke='%23d4af37' stroke-width='1' opacity='0.3'/%3E%3C/svg%3E");
+    background-repeat: repeat-y;
+    background-size: contain;
+}
+
+/* أيقونة القبة/المسجد */
+.card-mosque-icon {
+    position: absolute;
+    top: 16px;
+    left: 20%;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 35px;
+}
+
+.mosque-dome {
+    fill: #d4af37;
+}
+
+/* محتوى البطاقة */
+.card-content {
+    position: relative;
+    z-index: 2;
+    text-align: right;
+    padding-right: 5px;
+}
+
+.card-title {
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.card-subtitle {
+    font-size: 12px;
+    color: #d4af37;
+    font-weight: 600;
+}
+
+/* سهم الانتقال */
+.card-arrow {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+    z-index: 2;
+}
+
+/* ===== التصميم المتجاوب ===== */
+
+/* للشاشات الصغيرة جداً */
+@media (max-width: 360px) {
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .halqa-card {
+        min-height: 100px;
+    }
+}
+
+/* للشاشات المتوسطة والكبيرة */
+@media (min-width: 768px) {
+    .header-title {
+        font-size: 20px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+    }
+    
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .halqa-card {
+        min-height: 140px;
+        padding: 20px;
+    }
+    
+    .card-title {
+        font-size: 16px;
+    }
+    
+    .card-subtitle {
+        font-size: 14px;
+    }
+}
+
+/* تقليل الحركة للأجهزة الضعيفة */
+@media (prefers-reduced-motion: reduce) {
+    .halqa-card {
+        transition: none;
+    }
+}

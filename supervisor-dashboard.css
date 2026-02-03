@@ -1,0 +1,350 @@
+/* ===== إعادة التعيين الأساسية ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f0e8;
+    min-height: 100vh;
+    direction: rtl;
+}
+
+/* ===== الشريط العلوي ===== */
+.top-header {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.header-title {
+    font-size: 16px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+}
+
+.header-icon {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: background 0.3s ease;
+}
+
+.header-icon:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ===== المحتوى الرئيسي ===== */
+.main-content {
+    padding: 20px 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== قسم الترحيب ===== */
+.welcome-section {
+    margin-bottom: 25px;
+}
+
+.welcome-card {
+    background: linear-gradient(135deg, #1a5a4a 0%, #2d7a6a 100%);
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 5px 20px rgba(26, 90, 74, 0.3);
+}
+
+.welcome-icon {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d4af37;
+}
+
+.welcome-text {
+    flex: 1;
+}
+
+.welcome-greeting {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 5px;
+}
+
+.welcome-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+}
+
+/* ===== قسم الإحصائيات ===== */
+.stats-section {
+    margin-bottom: 25px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px 10px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.stat-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+}
+
+.stat-icon.teachers {
+    background-color: rgba(76, 175, 80, 0.15);
+    color: #4CAF50;
+}
+
+.stat-icon.students {
+    background-color: rgba(33, 150, 243, 0.15);
+    color: #2196F3;
+}
+
+.stat-icon.circles {
+    background-color: rgba(255, 152, 0, 0.15);
+    color: #FF9800;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #888;
+}
+
+/* ===== قسم الإدارة ===== */
+.management-section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-right: 5px;
+}
+
+.management-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ===== أزرار الإدارة ===== */
+.management-btn {
+    background: white;
+    border: none;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: right;
+    position: relative;
+    overflow: hidden;
+}
+
+.management-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+}
+
+.management-btn:active {
+    transform: translateY(0);
+}
+
+/* أيقونة الزر */
+.btn-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.btn-icon.green {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.15) 0%, rgba(76, 175, 80, 0.25) 100%);
+    color: #4CAF50;
+}
+
+.btn-icon.blue {
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.15) 0%, rgba(33, 150, 243, 0.25) 100%);
+    color: #2196F3;
+}
+
+.btn-icon.orange {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.25) 100%);
+    color: #FF9800;
+}
+
+/* نصوص الزر */
+.btn-title {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.btn-description {
+    display: block;
+    font-size: 12px;
+    color: #888;
+}
+
+/* سهم الزر */
+.btn-arrow {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ccc;
+    transition: color 0.3s ease, left 0.3s ease;
+}
+
+.management-btn:hover .btn-arrow {
+    color: #1a5a4a;
+    left: 15px;
+}
+
+/* ===== التصميم المتجاوب ===== */
+
+/* للشاشات الصغيرة جداً */
+@media (max-width: 360px) {
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    .stat-card {
+        padding: 12px 8px;
+    }
+    
+    .stat-number {
+        font-size: 20px;
+    }
+    
+    .welcome-card {
+        padding: 20px 15px;
+    }
+    
+    .welcome-name {
+        font-size: 18px;
+    }
+    
+    .btn-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* للشاشات المتوسطة والكبيرة */
+@media (min-width: 768px) {
+    .header-title {
+        font-size: 20px;
+    }
+    
+    .welcome-name {
+        font-size: 26px;
+    }
+    
+    .stats-grid {
+        gap: 20px;
+    }
+    
+    .stat-number {
+        font-size: 28px;
+    }
+    
+    .management-btn {
+        padding: 25px;
+    }
+    
+    .btn-icon {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .btn-title {
+        font-size: 18px;
+    }
+    
+    .btn-description {
+        font-size: 14px;
+    }
+}
+
+/* تقليل الحركة للأجهزة الضعيفة */
+@media (prefers-reduced-motion: reduce) {
+    .stat-card,
+    .management-btn,
+    .header-icon,
+    .btn-arrow {
+        transition: none;
+    }
+}
