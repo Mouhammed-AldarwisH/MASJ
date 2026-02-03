@@ -182,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     complex_name: formData.complexName,
                     complex_admin_email: formData.email,
                     complex_admin_username: formData.username,
+                    complex_admin_password: formData.password,
                     admin_auth_uid: data.user.id,
                     is_email_verified: false,
                     admin_approved: false,
