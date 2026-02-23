@@ -36,11 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
     var studentsTableBody = document.getElementById('studentsTableBody');
 
     // ===== بيانات الحلقات المتاحة =====
-    var availableHalaqat = [
-        { id: 1, name: 'حلقة الشجعان' },
-        { id: 2, name: 'حلقة المتميزين' },
-        { id: 3, name: 'حلقة النور' }
-    ];
+    // جلب الحلقات من localStorage إن وُجدت؛ لا تقم بترك بيانات تجريبية ثابتة
+    var availableHalaqat = (function(){
+        try {
+            var list = JSON.parse(localStorage.getItem('halaqat') || '[]');
+            if (Array.isArray(list)) return list.map(function(h){ return { id: h.id, name: h.name }; });
+        } catch (e) {}
+        return [];
+    })();
 
     // ===== الدوال المساعدة =====
 

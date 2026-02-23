@@ -8,46 +8,26 @@ document.addEventListener('DOMContentLoaded', function() {
         useDatabase = SupabaseDB.init();
     }
     
-    // ===== بيانات الحلقات مع طلابها (للتشغيل بدون قاعدة بيانات) =====
-    // هذه البيانات يمكن جلبها من قاعدة بيانات لاحقاً
-    var halaqatWithStudents = {
-        1: {
-            halqaName: 'حلقة الشجعان',
-            mosqueName: 'جامع أُبي بن كعب',
-            students: [
-                { id: 1, name: 'أحمد محمد العلي', idNumber: 'STD001' },
-                { id: 2, name: 'خالد عبدالله السعيد', idNumber: 'STD002' },
-                { id: 3, name: 'عمر فهد الراشد', idNumber: 'STD003' }
-            ]
-        },
-        2: {
-            halqaName: 'حلقة المتميزين',
-            mosqueName: 'جامع أُبي بن كعب',
-            students: [
-                { id: 4, name: 'يوسف سعد المالكي', idNumber: 'STD004' },
-                { id: 5, name: 'محمد علي الغامدي', idNumber: 'STD005' },
-                { id: 6, name: 'عبدالرحمن خالد', idNumber: 'STD006' }
-            ]
-        },
-        3: {
-            halqaName: 'حلقة النور',
-            mosqueName: 'جامع أُبي بن كعب',
-            students: [
-                { id: 7, name: 'سعود ناصر العتيبي', idNumber: 'STD007' },
-                { id: 8, name: 'فيصل محمد الدوسري', idNumber: 'STD008' },
-                { id: 9, name: 'تركي سلمان القحطاني', idNumber: 'STD009' },
-                { id: 10, name: 'نايف عبدالعزيز', idNumber: 'STD010' }
-            ]
-        }
-    };
-
-    // ===== جلب معرف الحلقة من الرابط =====
+    // ===== دوال تحميل بيانات الحلقة الفعلية (بدون بيانات تجريبية ثابتة) =====
     var urlParams = new URLSearchParams(window.location.search);
-    var currentHalqaId = urlParams.get('halqaId') || localStorage.getItem('selectedHalqaId') || '1';
-    
-    // ===== الحصول على بيانات الحلقة الحالية =====
-    var currentHalqa = halaqatWithStudents[currentHalqaId] || halaqatWithStudents['1'];
-    var studentsData = currentHalqa.students;
+    var currentHalqaId = urlParams.get('halqaId') || localStorage.getItem('selectedHalqaId') || null;
+    var currentHalqa = { halqaName: 'غير محدد', mosqueName: 'غير محدد', students: [] };
+    var studentsData = [];
+
+    async function getCurrentHalqaById(id) {
+        if (!id) return { halqaName: 'غير محدد', mosqueName: 'غير محدد', students: [] };
+        if (useDatabase && typeof SupabaseDB !== 'undefined' && SupabaseDB.getHalaqat) {
+            var list = await SupabaseDB.getHalaqat();
+            var found = list.find(function(h){ return String(h.id) === String(id); });
+            if (found) return { halqaName: found.name || found.halqaName || '', mosqueName: found.mosqueName || '', students: found.students || [] };
+        }
+        try {
+            var list = JSON.parse(localStorage.getItem('halaqat') || '[]');
+            var f = list.find(function(h){ return String(h.id) === String(id); });
+            if (f) return { halqaName: f.name || '', mosqueName: getMosqueName(f.mosqueId||null), students: f.students || [] };
+        } catch (e) {}
+        return { halqaName: 'غير محدد', mosqueName: 'غير محدد', students: [] };
+    }
 
     // ===== خيارات الحضور =====
     var attendanceOptions = [
@@ -93,15 +73,22 @@ document.addEventListener('DOMContentLoaded', function() {
      * تقوم بتحميل الطلاب وعرض التاريخ وإضافة الأحداث
      */
     async function initializePage() {
+        // تحديد الحلقة الحالية وجلب بياناتها (من localStorage أو قاعدة البيانات)
+        if (!currentHalqaId) currentHalqaId = localStorage.getItem('selectedHalqaId') || null;
+        if (currentHalqaId) localStorage.setItem('selectedHalqaId', currentHalqaId);
+        var cur = await getCurrentHalqaById(currentHalqaId);
+        currentHalqa = cur;
+        studentsData = (cur && Array.isArray(cur.students)) ? cur.students : [];
+
         // عرض معلومات الحلقة
         updateHalqaInfo();
-        
+
         // عرض التاريخ الحالي
         updateDateDisplay();
-        
+
         // تحميل قائمة الطلاب
         await loadStudents();
-        
+
         // إضافة أحداث الأزرار
         addButtonEvents();
         addModalEvents();

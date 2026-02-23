@@ -31,12 +31,37 @@ document.addEventListener('DOMContentLoaded', function() {
     var dropdownMenu = document.getElementById('dropdownMenu');
 
     // ===== بيانات الحلقات المتاحة =====
-    // يمكن تغييرها أو جلبها من قاعدة بيانات لاحقاً
-    var availableHalaqat = [
-        { id: 1, name: 'حلقة الشجعان' },
-        { id: 2, name: 'حلقة المتميزين' },
-        { id: 3, name: 'حلقة النور' }
-    ];
+    // جلب الحلقات من localStorage إن وُجدت؛ تجنب بيانات العرض التجريبية الثابتة
+    var availableHalaqat = (function(){
+        try {
+            var list = JSON.parse(localStorage.getItem('halaqat') || '[]');
+            if (Array.isArray(list)) return list.map(function(h){ return { id: h.id, name: h.name }; });
+        } catch (e) {}
+        return [];
+    })();
+
+    // ملء قائمة الحلقات في القائمة المنسدلة ديناميكياً
+    function populateHalaqatDropdown(){
+        if (!dropdownMenu) return;
+        dropdownMenu.innerHTML = '';
+        availableHalaqat.forEach(function(h){
+            var label = document.createElement('label');
+            label.className = 'dropdown-item';
+            label.innerHTML = '<input type="checkbox" name="halaqat" value="'+h.id+'">' +
+                              '<span class="checkbox-custom"></span>' +
+                              '<span class="item-text">'+(h.name||'')+'</span>';
+            dropdownMenu.appendChild(label);
+        });
+    }
+    populateHalaqatDropdown();
+
+    // بعد الملء، اربط أحداث تغيير الاختيارات
+    if (dropdownMenu) {
+        var dynamicCheckboxes = dropdownMenu.querySelectorAll('input[type="checkbox"]');
+        for (var _i = 0; _i < dynamicCheckboxes.length; _i++) {
+            dynamicCheckboxes[_i].addEventListener('change', updateDropdownText);
+        }
+    }
 
     // ===== الدوال المساعدة =====
 
@@ -249,13 +274,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     /**
-     * تحديث نص الزر عند تغيير الاختيارات
+     * (روابط الأحداث لخيارات الحلقات تُنشأ بعد ملء القائمة ديناميكياً)
      */
-    var checkboxes = dropdownMenu.querySelectorAll('input[type="checkbox"]');
-    
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].addEventListener('change', updateDropdownText);
-    }
 
     /**
      * تحديث نص القائمة المنسدلة بناءً على الاختيارات

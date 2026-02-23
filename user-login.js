@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // نموذج دخول المستخدمين (طالب/معلم/ولي أمر)
     var userLoginForm = document.getElementById('userLoginForm');
     var usernameInput = document.getElementById('usernameInput');
-    var complexCodeInput = document.getElementById('complexCodeInput');
+    var complexNameInput = document.getElementById('complexNameInput');
     var userPasswordInput = document.getElementById('userPasswordInput');
     var userLoginBtn = document.getElementById('userLoginBtn');
     var userErrorMessage = document.getElementById('userErrorMessage');
@@ -149,11 +149,11 @@ document.addEventListener('DOMContentLoaded', function() {
     async function loginUser() {
         // جمع البيانات
         var username = usernameInput.value.trim().toLowerCase();
-        var complexCode = complexCodeInput.value.trim();
+        var complexName = complexNameInput.value.trim();
         var password = userPasswordInput.value;
         
         // التحقق من الحقول
-        if (!username || !complexCode || !password) {
+        if (!username || !complexName || !password) {
             showError(userErrorMessage, userErrorText, 'يرجى ملء جميع الحقول');
             return;
         }
@@ -163,14 +163,44 @@ document.addEventListener('DOMContentLoaded', function() {
         hideError(userErrorMessage);
         
         try {
+            // العثور على المجمع حسب الاسم (Supabase) أو من localStorage
+            var complexCode = null;
+            var foundComplex = null;
+            if (isSupabaseReady) {
+                var { data: complexData, error: complexError } = await supabaseClient
+                    .from('complexes')
+                    .select('id, complex_name, complex_code')
+                    .ilike('complex_name', complexName)
+                    .limit(1)
+                    .single();
+
+                if (!complexError && complexData) {
+                    foundComplex = complexData;
+                    complexCode = complexData.complex_code || String(complexData.id);
+                }
+            }
+
+            // وضع محلي: حاول إيجاد المجمع في localStorage أو اصنع رمز من الاسم
+            if (!complexCode) {
+                try {
+                    var localList = JSON.parse(localStorage.getItem('complexes') || '[]');
+                    if (Array.isArray(localList)) {
+                        var lc = localList.find(function(c){ return (c.complex_name||c.name||'').toLowerCase() === complexName.toLowerCase(); });
+                        if (lc) { foundComplex = lc; complexCode = lc.complex_code || String(lc.id || lc.code || ''); }
+                    }
+                } catch (e) {}
+            }
+
+            // إذا لم نعثر على رمز مجمع، انشئ slug من الاسم لاستخدامه في البريد الوهمي
+            if (!complexCode) {
+                complexCode = complexName.toLowerCase().trim().replace(/\s+/g,'-').replace(/[^a-z0-9\-]/g,'');
+            }
+
             // بناء الإيميل الوهمي: username@complex_code.masjed-app.com
             var fakeEmail = username + '@' + complexCode + '.masjed-app.com';
-            
+
             // تسجيل الدخول باستخدام Supabase Auth
-            var { data, error } = await supabaseClient.auth.signInWithPassword({
-                email: fakeEmail,
-                password: password
-            });
+            var { data, error } = await supabaseClient.auth.signInWithPassword({ email: fakeEmail, password: password });
             
             if (error) {
                 throw error;
@@ -181,13 +211,22 @@ document.addEventListener('DOMContentLoaded', function() {
             var userMetadata = user.user_metadata || {};
             var role = userMetadata.role || 'student';
             
+            // تحقق أن المستخدم مسجّل في نفس المجمع (إن وُجدت معلومات المجمع)
+            if (foundComplex && userMetadata) {
+                var userComplexId = userMetadata.complex_id || userMetadata.complexId || userMetadata.complex_code;
+                if (userComplexId && String(userComplexId) !== String(foundComplex.id) && String(userComplexId) !== String(foundComplex.complex_code)) {
+                    throw new Error('المستخدم غير مسجّل في هذا المجمع');
+                }
+            }
+
             // حفظ بيانات المستخدم في التخزين المحلي
             var userData = {
                 id: user.id,
                 name: userMetadata.full_name || username,
                 email: fakeEmail,
                 role: role,
-                complexId: userMetadata.complex_id || complexCode,
+                complexId: userMetadata.complex_id || foundComplex && (foundComplex.id || foundComplex.complex_code) || complexCode,
+                complexName: foundComplex && (foundComplex.complex_name || foundComplex.name) || complexName,
                 loginTime: new Date().toISOString()
             };
             localStorage.setItem('currentUser', JSON.stringify(userData));
@@ -378,8 +417,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!isSupabaseReady) {
                 // وضع التطوير المحلي
                 var username = usernameInput.value.trim();
-                var complexCode = complexCodeInput.value.trim();
+                var complexName = complexNameInput.value.trim();
                 var password = userPasswordInput.value;
+                // حوّل اسم المجمع إلى رمز (slug) إن لم يوجد)
+                var complexCode = (function(){ try { var list = JSON.parse(localStorage.getItem('complexes')||'[]'); var f = (Array.isArray(list) && list.find(function(c){ return (c.complex_name||c.name||'').toLowerCase()===complexName.toLowerCase(); })); if (f) return f.complex_code||String(f.id); } catch(e){} return complexName.toLowerCase().trim().replace(/\s+/g,'-').replace(/[^a-z0-9\-]/g,''); })();
                 var fakeEmail = username + '@' + complexCode + '.masjed-app.com';
                 
                 var result = localLogin(fakeEmail, password);
@@ -438,7 +479,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // إخفاء رسائل الخطأ عند الكتابة
     // =============================================
     
-    [usernameInput, complexCodeInput, userPasswordInput].forEach(function(input) {
+    [usernameInput, complexNameInput, userPasswordInput].forEach(function(input) {
         if (input) {
             input.addEventListener('input', function() {
                 hideError(userErrorMessage);

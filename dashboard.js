@@ -8,25 +8,17 @@ document.addEventListener('DOMContentLoaded', function() {
         useDatabase = SupabaseDB.init();
     }
     
-    // ===== بيانات الحلقات الكاملة (للتشغيل بدون قاعدة بيانات) =====
-    // هذه البيانات يمكن تغييرها أو جلبها من قاعدة بيانات لاحقاً
-    var allHalaqatData = [
-        {
-            id: 1,
-            mosqueName: 'جامع أُبي بن كعب',
-            halqaName: 'حلقة الشجعان'
-        },
-        {
-            id: 2,
-            mosqueName: 'جامع أُبي بن كعب',
-            halqaName: 'حلقة المتميزين'
-        },
-        {
-            id: 3,
-            mosqueName: 'جامع أُبي بن كعب',
-            halqaName: 'حلقة النور'
+    // ===== جلب الحلقات (ديناميكي) =====
+    async function getAllHalaqatLocal() {
+        if (useDatabase && typeof SupabaseDB !== 'undefined' && SupabaseDB.getHalaqat) {
+            return await SupabaseDB.getHalaqat();
         }
-    ];
+        try {
+            var stored = JSON.parse(localStorage.getItem('halaqat') || '[]');
+            if (Array.isArray(stored)) return stored;
+        } catch (e) {}
+        return [];
+    }
 
     // تحميل البطاقات عند فتح الصفحة
     loadCards();
@@ -60,9 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // جلب بيانات المعلم المسجل دخوله حالياً
         var currentTeacher = localStorage.getItem('currentTeacher');
         
-        // إذا لم يكن هناك معلم مسجل، عرض كل الحلقات (للمدير مثلاً)
+        // إذا لم يكن هناك معلم مسجل، عرض كل الحلقات الحقيقية (بدون بيانات تجريبية)
         if (!currentTeacher) {
-            return allHalaqatData;
+            return await getAllHalaqatLocal();
         }
         
         var teacher = JSON.parse(currentTeacher);

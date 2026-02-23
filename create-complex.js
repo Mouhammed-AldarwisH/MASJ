@@ -175,6 +175,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('فشل في إنشاء الحساب');
             }
             
+            // تسجيل الدخول بالجلسة الجديدة لضمان صلاحيات الإدخال
+            if (data.session) {
+                await supabaseClient.auth.setSession({
+                    access_token: data.session.access_token,
+                    refresh_token: data.session.refresh_token
+                });
+            }
+
             // حفظ بيانات المجمع في قاعدة البيانات
             var { error: complexError } = await supabaseClient
                 .from('complexes')
@@ -190,7 +198,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             
             if (complexError) {
-                console.warn('فشل في حفظ بيانات المجمع:', complexError);
+                console.error('فشل في حفظ بيانات المجمع:', complexError);
+                showMessage(createComplexMessage, 'تم إنشاء الحساب لكن فشل حفظ بيانات المجمع. يرجى التواصل مع الإدارة.', 'error');
+                return;
             }
             
             // حفظ البريد لاستخدامه في التحقق

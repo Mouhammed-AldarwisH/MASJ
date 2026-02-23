@@ -86,15 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (stored && Array.isArray(stored)) return stored;
         } catch (e) { }
 
-        // if no halaqat are stored yet, provide a small sample list so the view shows data
-        var mosques = getMosques();
-        var sample = [
-            { id: 1, name: 'حلقة الشجعان', mosqueId: (mosques[0] && mosques[0].id) || 1, teachers: [], students: [] },
-            { id: 2, name: 'حلقة المتميزين', mosqueId: (mosques[1] && mosques[1].id) || 2, teachers: [], students: [] }
-        ];
-        // persist sample so subsequent loads show it
-        try { localStorage.setItem('halaqat', JSON.stringify(sample)); } catch (e) {}
-        return sample;
+        // لا توجد حلقات مخزنة — أنشئ قائمة فارغة (احذف بيانات العرض التجريبية)
+        return [];
     }
 
     function getTeachers() {
